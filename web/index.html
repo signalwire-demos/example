@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<!--
+═══════════════════════════════════════════════════════════════════════════════
+SignalWire AI Agent Example - Web Client
+═══════════════════════════════════════════════════════════════════════════════
+
+This is a minimal but complete example of a WebRTC frontend for SignalWire AI
+agents. It demonstrates:
+
+- Dynamic token fetching from /get_token
+- SignalWire client initialization
+- Event handling (user_event from the agent)
+- UI updates based on events
+- Proper connection lifecycle management
+
+═══════════════════════════════════════════════════════════════════════════════
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignalWire AI Agent Example</title>
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="SignalWire AI Agent Example">
+    <meta property="og:description" content="A bare-bones example of a SignalWire AI agent with WebRTC frontend">
+    <meta property="og:type" content="website">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- SignalWire SDK -->
+    <script src="https://cdn.signalwire.com/js/signalwire-client-5.1.1.min.js"></script>
+</head>
+<body>
+    <!-- ─────────────────────────────────────────────────────────────────────
+         Header
+         ───────────────────────────────────────────────────────────────────── -->
+    <header>
+        <h1>SignalWire AI Agent Example</h1>
+        <p class="subtitle">Demonstrating user events, state persistence, and WebRTC integration</p>
+    </header>
+
+    <!-- ─────────────────────────────────────────────────────────────────────
+         Main Content
+         ───────────────────────────────────────────────────────────────────── -->
+    <main>
+        <!-- Left Panel: Video and Controls -->
+        <section class="video-section">
+            <!-- Video Container -->
+            <div id="video-container">
+                <div class="placeholder">
+                    <p>Click "Connect" to start</p>
+                </div>
+            </div>
+
+            <!-- Connection Controls -->
+            <div class="controls">
+                <button id="connect-btn" onclick="connect()">Connect</button>
+                <button id="disconnect-btn" onclick="disconnect()" disabled>Disconnect</button>
+            </div>
+
+            <!-- Status Display -->
+            <div id="status" class="status">
+                <span class="status-indicator"></span>
+                <span class="status-text">Ready to connect</span>
+            </div>
+        </section>
+
+        <!-- Right Panel: Event Display -->
+        <section class="events-section">
+            <!-- Counter Display (demonstrates state persistence) -->
+            <div class="counter-display">
+                <h3>Counter</h3>
+                <div id="counter-value" class="counter-value">0</div>
+                <p class="counter-hint">Ask the agent to count something!</p>
+            </div>
+
+            <!-- Last Greeting Display -->
+            <div class="last-event">
+                <h3>Last Greeting</h3>
+                <div id="last-greeting" class="event-value">-</div>
+            </div>
+
+            <!-- Last Echo Display -->
+            <div class="last-event">
+                <h3>Last Echo</h3>
+                <div id="last-echo" class="event-value">-</div>
+            </div>
+
+            <!-- Event Log -->
+            <div class="event-log">
+                <h3>Event Log</h3>
+                <div id="event-log" class="log-container">
+                    <div class="log-entry system">Waiting for connection...</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ─────────────────────────────────────────────────────────────────────
+         Footer
+         ───────────────────────────────────────────────────────────────────── -->
+    <footer>
+        <p>
+            <a href="https://github.com/signalwire" target="_blank">GitHub</a> |
+            <a href="https://developer.signalwire.com" target="_blank">Documentation</a>
+        </p>
+    </footer>
+
+    <!-- Application JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>

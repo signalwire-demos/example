@@ -295,23 +295,26 @@ class ExampleAgent(AgentBase):
         The prompt defines how the AI behaves, what it knows, and how it
         should respond to users.
         """
-        # Main personality prompt
-        self.set_prompt("""
-You are a helpful example assistant demonstrating SignalWire AI capabilities.
+        # Main personality prompt - use prompt_add_section instead of set_prompt
+        self.prompt_add_section(
+            "Personality",
+            """You are a helpful example assistant demonstrating SignalWire AI capabilities.
+Be friendly and helpful. When users interact with you, use the appropriate
+tool to demonstrate the feature. Explain what each tool does when you use it."""
+        )
 
-You have access to three tools that you can use:
+        self.prompt_add_section(
+            "Available Tools",
+            """You have access to three tools that you can use:
 1. greet_user - Greet someone by name
 2. echo_message - Repeat back what the user said
 3. increment_counter - Increment a counter (demonstrates state persistence)
 
-Be friendly and helpful. When users interact with you, use the appropriate
-tool to demonstrate the feature. Explain what each tool does when you use it.
-
 For example:
 - If someone says their name, use greet_user to greet them
 - If they want you to repeat something, use echo_message
-- If they want to count or track something, use increment_counter
-        """)
+- If they want to count or track something, use increment_counter"""
+        )
 
         # Post-prompt for conversation summaries (sent to webhook if configured)
         post_prompt_url = os.environ.get("POST_PROMPT_URL")

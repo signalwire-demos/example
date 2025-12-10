@@ -124,31 +124,27 @@ main {
 
 #video-container {
     position: relative;
-    width: 100%;
-    max-width: 640px;
-    background: var(--bg-card);
+    width: 480px;
+    height: 270px;
+    background: #000;
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: var(--shadow-lg);
 }
 
-/* Aspect ratio via padding trick */
-#video-container::before {
-    content: '';
-    display: block;
-    padding-top: 56.25%; /* 16:9 aspect ratio */
+/* Constrain ALL SDK-injected elements */
+#video-container * {
+    max-width: 100% !important;
+    max-height: 100% !important;
 }
 
-/* Constrain SDK-injected video and wrapper divs */
-#video-container video,
-#video-container > div > video {
+#video-container video {
     position: absolute !important;
     top: 0 !important;
     left: 0 !important;
     width: 100% !important;
     height: 100% !important;
     object-fit: contain !important;
-    background: #000;
 }
 
 #video-container > div {
@@ -159,7 +155,7 @@ main {
     height: 100% !important;
 }
 
-/* Hide local video preview */
+/* Hide local video preview and controls */
 #video-container video[id*="local"],
 #video-container video.localVideo {
     display: none !important;
@@ -172,6 +168,15 @@ main {
     transform: translate(-50%, -50%);
     color: var(--text-muted);
     text-align: center;
+    z-index: 1;
+}
+
+@media (max-width: 600px) {
+    #video-container {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+    }
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────

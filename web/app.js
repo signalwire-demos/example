@@ -165,6 +165,12 @@ async function connect() {
             updateStatus('connected', 'Connected');
             isConnected = true;
             updateButtons();
+
+            // Hide placeholder when connected
+            const placeholder = videoContainer.querySelector('.placeholder');
+            if (placeholder) {
+                placeholder.style.display = 'none';
+            }
         });
 
         roomSession.on('room.left', () => {
@@ -266,17 +272,21 @@ function handleUserEvent(params) {
         eventData = params.event;
     }
 
-    // Validate we have event data with a type
-    if (!eventData || !eventData.type) {
-        console.log('No valid event data found:', params);
+    // Validate we have event data with a type field (our custom events)
+    // Skip SDK internal events that don't have a type
+    if (!eventData || typeof eventData.type !== 'string') {
+        console.log('Skipping non-application event:', params);
+        return;
+    }
+
+    // Skip internal SDK event types
+    const internalTypes = ['room.joined', 'room.left', 'member.joined', 'member.left', 'playback.started', 'playback.ended'];
+    if (internalTypes.includes(eventData.type)) {
+        console.log('Skipping internal event type:', eventData.type);
         return;
     }
 
     const eventType = eventData.type;
-    const timestamp = eventData.timestamp || new Date().toLocaleTimeString();
-
-    // Log all events
-    logEvent('event', `${eventType}: ${JSON.stringify(eventData)}`);
 
     // ─────────────────────────────────────────────────────────────────────────
     // Handle specific event types

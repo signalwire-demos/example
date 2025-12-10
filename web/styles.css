@@ -100,9 +100,9 @@ header .subtitle {
    ───────────────────────────────────────────────────────────────────────────── */
 main {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 520px 1fr;
     gap: var(--spacing-xl);
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: var(--spacing-xl);
 }
@@ -120,12 +120,17 @@ main {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-md);
+    width: 520px;
 }
 
 #video-container {
     position: relative;
-    width: 480px;
-    height: 270px;
+    width: 520px;
+    height: 293px;
+    min-width: 520px;
+    min-height: 293px;
+    max-width: 520px;
+    max-height: 293px;
     background: #000;
     border-radius: var(--border-radius);
     overflow: hidden;
@@ -133,17 +138,24 @@ main {
 }
 
 /* Constrain ALL SDK-injected elements */
-#video-container * {
+#video-container *,
+#video-container *::before,
+#video-container *::after {
     max-width: 100% !important;
     max-height: 100% !important;
+    box-sizing: border-box !important;
 }
 
 #video-container video {
     position: absolute !important;
     top: 0 !important;
     left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
+    width: 520px !important;
+    height: 293px !important;
+    min-width: 520px !important;
+    min-height: 293px !important;
+    max-width: 520px !important;
+    max-height: 293px !important;
     object-fit: contain !important;
 }
 
@@ -153,6 +165,7 @@ main {
     left: 0 !important;
     width: 100% !important;
     height: 100% !important;
+    overflow: hidden !important;
 }
 
 /* Hide local video preview and controls */
@@ -171,10 +184,18 @@ main {
     z-index: 1;
 }
 
-@media (max-width: 600px) {
-    #video-container {
+@media (max-width: 900px) {
+    .video-section {
         width: 100%;
-        height: auto;
+    }
+    #video-container,
+    #video-container video {
+        width: 100% !important;
+        min-width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        min-height: unset !important;
+        max-height: unset !important;
         aspect-ratio: 16 / 9;
     }
 }

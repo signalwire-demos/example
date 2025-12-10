@@ -258,6 +258,15 @@ def setup_swml_handler():
             logger.info(f"Created SWML handler '{agent_name}' with address: {swml_handler_info.get('address')}")
         except Exception as e:
             logger.error(f"Failed to create SWML handler: {e}")
+            # Retry finding existing handler (another worker may have just created it)
+            time.sleep(0.5)
+            existing = find_existing_handler(sw_host, auth, agent_name)
+            if existing:
+                swml_handler_info["id"] = existing["id"]
+                swml_handler_info["address_id"] = existing["address_id"]
+                swml_handler_info["address"] = existing["address"]
+                logger.info(f"Found existing SWML handler after retry: {existing['name']}")
+                logger.info(f"Call address: {existing['address']}")
 
 
 # ═══════════════════════════════════════════════════════════════════════════════

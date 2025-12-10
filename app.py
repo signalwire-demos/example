@@ -306,12 +306,12 @@ tool to demonstrate the feature. Explain what each tool does when you use it."""
         self.prompt_add_section(
             "Available Tools",
             """You have access to three tools that you can use:
-1. greet_user - Greet someone by name
+1. greet_user - Greet the user. IMPORTANT: Always call this FIRST when the conversation starts!
 2. echo_message - Repeat back what the user said
 3. increment_counter - Increment a counter (demonstrates state persistence)
 
-For example:
-- If someone says their name, use greet_user to greet them
+IMPORTANT: When a user first connects, immediately call greet_user to welcome them.
+- If they later tell you their name, call greet_user again with their name
 - If they want you to repeat something, use echo_message
 - If they want to count or track something, use increment_counter"""
         )
@@ -341,16 +341,16 @@ For example:
         # ─────────────────────────────────────────────────────────────────────
         @self.tool(
             name="greet_user",
-            description="Greet a user by their name. Use this when someone introduces themselves or you want to welcome them.",
+            description="Greet a user. ALWAYS call this tool first when a conversation starts to welcome the user. Call it again if they tell you their name.",
             parameters={
                 "type": "object",
                 "properties": {
                     "name": {
                         "type": "string",
-                        "description": "The name of the person to greet"
+                        "description": "The name of the person to greet (optional, use 'friend' if unknown)"
                     }
                 },
-                "required": ["name"]
+                "required": []
             }
         )
         def greet_user(args, raw_data):

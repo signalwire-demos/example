@@ -504,14 +504,14 @@ IMPORTANT: When a user first connects, immediately call greet_user to welcome th
 
         # Configure video files (idle and talking avatars)
         if base_url:
-            self.set_param("video_idle_file", f"{base_url}/example_idle.mp4")
-            self.set_param("video_talking_file", f"{base_url}/example_talking.mp4")
+            self.set_param("video_idle_file", f"{base_url}/sigmond_pc_idle.mp4")
+            self.set_param("video_talking_file", f"{base_url}/sigmond_pc_talking.mp4")
 
         # Configure voice (using Google TTS)
         self.add_language(
             name="English",
             code="en-US",
-            voice="elevenlabs.rachel"  # Or use "en-US-Standard-J" for Google TTS
+            voice="elevenlabs.adam"  # Or use "en-US-Standard-J" for Google TTS
         )
 
         # Add speech hints for better recognition of domain-specific terms

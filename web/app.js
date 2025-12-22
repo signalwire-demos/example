@@ -230,8 +230,8 @@ function handleDisconnect() {
     isConnected = false;
     roomSession = null;
 
-    // Clear video container
-    videoContainer.innerHTML = '<div class="placeholder"><p>Click "Connect" to start</p></div>';
+    // Clear video container and restore placeholder with image
+    videoContainer.innerHTML = '<div class="placeholder"><img src="sigmond_pc.png" alt="Sigmond - Click Connect to start"></div>';
 
     updateStatus('disconnected', 'Disconnected');
     updateButtons();
